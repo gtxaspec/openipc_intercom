@@ -13,15 +13,17 @@ This repository provides tools to send audio to an OpenIPC `/play_audio` endpoin
 
 Compile the source code with the provided script:
 
-./compile.sh
+`./compile.sh`
 
-**Note**: For optimal results and reduced binary sizes, ensure you have UPX installed.
+**Note**: For optimal results and reduced binary sizes, ensure you have UPX (UPX 4.0.2 or later for mipsle) installed, then run:
+
+`./compile.sh upx`
 
 ### Configuration
 
 1. Rename the sample configuration file:
 
-mv config.json.example config.json
+`mv config.json.example config.json`
 
 2. Update `config.json` with your specific settings.
 
@@ -29,17 +31,17 @@ mv config.json.example config.json
 
 To start the server, use:
 
-./intercom
+`./intercom`
 
 For debug output, use the `--debug` flag:
 
-./intercom --debug
+`./intercom --debug`
 
 ### Accessing the Interface
 
 Once the server is running, access the interface from your browser:
 
-http://<ip-address>:3333/index.html
+`http://<ip-address>:3333/index.html`
 
 ## Credits
 

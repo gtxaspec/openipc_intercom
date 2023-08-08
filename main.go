@@ -8,6 +8,7 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
+	"strconv"
 )
 
 var config map[string]string
@@ -108,7 +109,7 @@ func uploadHandler(w http.ResponseWriter, r *http.Request) {
 
 	// Parse WAV header
 	var header WAVHeader
-	 err = binary.Read(bytes.NewReader(fileBytes), binary.LittleEndian, &header)
+	err = binary.Read(bytes.NewReader(fileBytes), binary.LittleEndian, &header)
 	if err != nil {
 		log.Printf("Error parsing WAV header: %v", err)
 		http.Error(w, "Invalid WAV file", http.StatusBadRequest)
@@ -133,6 +134,16 @@ func uploadHandler(w http.ResponseWriter, r *http.Request) {
 
 	// Downsample the PCM data
 	downsampledData := downsample(pcmData, int(header.SampleRate), 16000)
+
+	// Adjust the volume level by applying a scaling factor
+	scalingFactorStr := config["volScalingFactor"]
+	scalingFactor, err := strconv.ParseFloat(scalingFactorStr, 64)
+	if err != nil {
+		log.Fatalf("Error parsing scaling factor: %v", err)
+	}
+	for i := range downsampledData {
+		downsampledData[i] = int16(float64(downsampledData[i]) * scalingFactor)
+	}
 
 	// Pad with silence
 	paddedData := make([]int16, 8000+len(downsampledData)+24000)
