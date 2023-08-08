@@ -5,7 +5,9 @@ This repository provides tools to send audio to an OpenIPC `/play_audio` endpoin
 ## Compatibility
 
 - Designed primarily for Ingenic T31 devices.
-- Can be deployed directly on-device (mipsle architecture) or on an external server.
+- Can be deployed directly on-device or on an external server.
+- Written in Golang, cross-compile for most processor architectures.
+- Binaries for amd64 & mipsle included.
 
 ## Setup & Installation
 
