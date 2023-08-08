@@ -6,6 +6,8 @@ Tested with Ingenic T31 devices.
 
 compile with:
 
-`GOOS=linux GOARCH=mipsle go build -ldflags="-s -w" -o intercom_mipsle main.go`
+`./compile.sh`
+
+install UPX for smaller binary sizes
 
 based off `https://github.com/addpipe/simple-recorderjs-demo/tree/master`
