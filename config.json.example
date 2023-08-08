@@ -1,0 +1,6 @@
+{
+    "port": "3333",
+    "webPath": "./www/",
+    "uploadPath": "./uploads/",
+    "playAudioURL": "http://192.168.1.2/play_audio"
+}
