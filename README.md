@@ -1,22 +1,46 @@
-send audio to an OpenIPC /play_audio endpoint from a web browser or Home Assistant card.
+# OpenIPC Audio Endpoint Interface
 
-Runs ON-DEVICE (mipsle) or on another server
+This repository provides tools to send audio to an OpenIPC `/play_audio` endpoint directly from a web browser or a Home Assistant card.
 
-Tested with Ingenic T31 devices.
+## Compatibility
 
-compile with:
+- Designed primarily for Ingenic T31 devices.
+- Can be deployed directly on-device (mipsle architecture) or on an external server.
 
-`./compile.sh`
+## Setup & Installation
 
-install UPX for smaller binary sizes
+### Compilation
 
-run:
+Compile the source code with the provided script:
 
-rename `config.json.example` to `config.json`, make your changes, then run
+./compile.sh
 
-`./intercom`
+**Note**: For optimal results and reduced binary sizes, ensure you have UPX installed.
 
-for debug output:
-`./intercom --debug`
+### Configuration
 
-based off `https://github.com/addpipe/simple-recorderjs-demo/tree/master`
+1. Rename the sample configuration file:
+
+mv config.json.example config.json
+
+2. Update `config.json` with your specific settings.
+
+### Running the Server
+
+To start the server, use:
+
+./intercom
+
+For debug output, use the `--debug` flag:
+
+./intercom --debug
+
+### Accessing the Interface
+
+Once the server is running, access the interface from your browser:
+
+http://<ip-address>:3333/index.html
+
+## Credits
+
+This project is inspired by and based on the [simple-recorderjs-demo](https://github.com/addpipe/simple-recorderjs-demo/tree/master) from addpipe.
