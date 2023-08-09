@@ -41,6 +41,8 @@ For debug output, use the `--debug` flag:
 
 ### Accessing the Interface
 
+Tested on Chrome.  Add the server url to `chrome://flags/#unsafely-treat-insecure-origin-as-secure` in order to support microphone capability (since the server is not https).
+
 Once the server is running, access the interface from your browser:
 
 `http://<ip-address>:3333/index.html`

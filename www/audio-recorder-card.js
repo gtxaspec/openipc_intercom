@@ -1,4 +1,4 @@
-// Dynamically load recorder.js from a URL, typically where the server is running
+// Dynamically load recorder.js from a URL, adjust accordingly
 const recorderScript = document.createElement('script');
 recorderScript.src = 'http://192.168.1.2:3333/library/recorder.js';
 document.head.appendChild(recorderScript);
@@ -52,32 +52,34 @@ recorderScript.onload = () => {
 
         async startRecording(event) {
             event.preventDefault();
-
-            if (!this.audioContext) {
-                this.audioContext = new (window.AudioContext || window.webkitAudioContext)();
-            }
-
-            if (!this.recorder) {
-                this.stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-                let source = this.audioContext.createMediaStreamSource(this.stream);
-                this.recorder = new Recorder(source, { numChannels: 1 });
-            }
-
+        
+            if (this.isRecording) return; // Prevent starting multiple recordings
+            this.isRecording = true;
+        
+            // Always create a new AudioContext and Recorder instance
+            this.audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            this.stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+            let source = this.audioContext.createMediaStreamSource(this.stream);
+            this.recorder = new Recorder(source, { numChannels: 1 });
+        
             this.audioChunks = [];
             this.recorder.record();
             this.content.querySelector("#recordButton").innerText = "Listening...";
         }
-
+        
         stopRecording(event) {
             event.preventDefault();
-
+        
+            if (!this.isRecording) return; // Prevent stopping multiple times
+            this.isRecording = false;
+        
             if (this.recorder) {
                 this.recorder.stop();
                 this.recorder.exportWAV(this.sendDataToServer.bind(this));
                 this.recorder.clear();
                 this.stream.getTracks().forEach(track => track.stop());
             }
-
+        
             this.content.querySelector("#recordButton").innerText = "Push and Hold to Talk";
         }
 
